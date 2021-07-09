@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>S'enregistrer à une nouvelle adresse</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">  
+  <link rel="stylesheet" href="../static/css/intlTelInput.css">
+  <link rel="stylesheet" href="../static/css/demo.css"> 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
+    integrity="sha512-DNeDhsl+FWnx5B1EQzsayHMyP6Xl/Mg+vcnFPXGNjUZrW28hQaa1+A4qL9M+AiOMmkAhKAWYHh1a+t6qxthzUw=="
+    crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
+    integrity="sha512-yye/u0ehQsrVrfSd6biT17t39Rg9kNc+vENcCXZuMz2a+LWFGvXUnYuWUW6pbfYj1jcBb/C39UZw2ciQvwDDvg=="
+    crossorigin="anonymous"/> 
+
+    
+  <img class="img-responsive center-block d-block mx-auto" src="./static/images/rsz_logo_white.png" alt="logo"
+    style=" width: 15%; height: 15%;">
+  <div class="col-md-4 ml-auto mr-auto">
+    <h2 style="font-size: 1em;"> Bonjour,vous souhaitez vous enregistrer à l'adresse <br> à cette adresse Dakar,
+      Sénégal</h2>
+      <div class="row">
+    <form action="" method="post">
+      <div class="form-group">
+      Prénom :
+      <input class="form-control" type="text" placeholder="Fatou" name="firstname" value="">
+      Nom :
+      <input class="form-control" type="text" placeholder="Guewel" name="familyname" value="">
+      <p id="output">telephone:</p>
+      <input class="form-control" type="tel" id="phone" name="phone" placeholder="Numéro de téléphone" style="width: max-content;"/>
+      <p>Code Pin:
+        <input type="password" class="form-control" value="" name="pwd" id="pwd" placeholder="Choisir un Pin" />
+        <span class="input-group-btn">
+          <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+        </span>
+        <br>
+
+    <input class="btn btn-success" type="submit" id="button" onclick="javascript:testapi()" value="VERIFIER MON NUMERO"
+      style="border-radius: 20px;">
+  </form>
+</div>
+</div>
+    </div>
+  <!-- JAVASCRIPT CODE REQUIRED -->
+  <!--<script src="../static/js/login.js')}}"></script>-->
+  
+  <script>
+    var input = document.querySelector("#phone");
+    
+    //output = document.querySelector("#output");
+    // console.log(input)
+      window.intlTelInput(input, {
+      separateDialCode: true,
+      preventInvalidNumbers: true,
+      autoHideDialCode: false,
+      autoPlaceholder: false,
+      nationalMode: false,
+      
+      // nationalMode: true,
+     // autoPlaceholder: "off",
+      // the countries at the top of the list. defaults to united states and united kingdom
+      preferredCountries: ["sn", "cm", "fr", "ng"],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js",
+     
+
+        customPlaceholder: function (
+        selectedCountryPlaceholder,
+        selectedCountryData
+      ) {
+
+        return "s.n. " + selectedCountryPlaceholder ,selectedCountryData;
+ 
+      },
+    }); 
+
+   /*  var iti = window.intlTelInput(input, {
+      nationalMode: true,
+      preferredCountries: ["sn", "cm", "fr", "ng"],
+    });
+
+    var handleChange = function() {
+      var text = (iti.isValidNumber()) ? "International: " + iti.getNumber() : "Please enter a number below";
+      var textNode = document.createTextNode(text);
+    
+      output.innerHTML = "";
+      output.appendChild(textNode);
+      //input.appendChild(iti.pinId + iti.getNumber());
+    };
+
+    // listen to "keyup", but also "change" to update when the user selects a country
+    input.addEventListener('change', handleChange);
+    input.addEventListener('keyup', handleChange);
+ */
+
+    
+
+    
+
+
+    document.getElementById('button').onclick = function (e) {
+      e.preventDefault()
+      var input = document.getElementById("phone").value;
+      
+      var numero = document.getElementById("phone");
+     
+
+      //
+      var data = {
+        "api_key": "TLmhxdonUEdRb70O9S1SQOs5QsXud3Cxbwukx6kxo6HO6Uq9Cd928SjSjS5h1o",
+        "message_type": "NUMERIC",
+        "to": input,
+        "from": "Findme",
+        "channel": "generic",
+        "pin_attempts": 10,
+        "pin_time_to_live": 5,
+        "pin_length": 6,
+        "pin_placeholder": "< 1234 >",
+        "message_text": "Veuillez saisir le code suivant < 1234 >",
+        "pin_type": "NUMERIC"
+      };
+
+      var data = JSON.stringify(data);
+      var xhr = new XMLHttpRequest();
+      // xhr.withCredentials = true;
+      xhr.open("POST", "https://termii.com/api/sms/otp/send", true);
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          var result = JSON.parse(this.responseText)
+          location.href = "verification_code.html"
+          console.log(input);   
+          console.log(result);
+          document.cookie = "pinId=" + result.pinId + ";SameSite=None; Secure; path =/";
+          console.log(document.cookie);
+
+
+        }
+      });
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Content-Type", "multipart/form-data");
+
+      xhr.send(data);
+
+    }
+
+  </script>
+</body>
+
+</html>

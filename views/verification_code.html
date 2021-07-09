@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Validation du numéro de téléphone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="col-md-3 ml-auto mr-auto">
+    <img src="./static/images/rsz_logo_white.png" alt="logo" style=" width: 60%; height: 20%;">
+  </div>
+
+  <div class="col-md-4 ml-auto mr-auto">
+    <form action="" method="post">
+      <input class="form-control" name="code" type="text" id="code" value=""
+        placeholder="Entrer le code" /> <br>
+      <div class="col-md-8 ml-auto mr-auto">
+        <input class="btn btn-success" id="myButton" type="submit" value="VERIFIER LE CODE"
+          onclick="javascript:testcode()" style="border-radius: 20px;">
+
+      </div>
+    </form>
+    <!--  <div id="wrapper">
+      <div id="dialog">
+        <button class="close"></button>
+        <h3 style="font-size: 1em;">S'il vous plait entrer le code de vérification <br> reçu par sms:</h3>
+        <form action=""method="post">
+        <div id="form">
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+          <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><br><br>
+          <input class="btn btn-primary" type="submit" value="VERIFIER LE CODE" onclick="javascript:testcode()" ><br>
+        </div>
+
+        <div>
+         Vous n'avez pas reçu de code?<br />
+          <a href="#">renvoyer le code</a><br />
+          <a href="#">Changer votre numero</a>
+        </div>
+      </div>
+    </div> -->
+    <script type="text/javascript">
+      document.getElementById('myButton').onclick = function (e) {
+        e.preventDefault()
+        var input = document.getElementById("code").value;
+        var ca = document.cookie.split(";");
+          console.log(ca);
+          var pinCookie = ca[ca.length-1].slice(6, 43);
+          console.log(pinCookie)
+        
+    
+       // console.log(ca[1]);
+        //var c = document.cookie;
+        //console.log(c)
+        api_key = "TLmhxdonUEdRb70O9S1SQOs5QsXud3Cxbwukx6kxo6HO6Uq9Cd928SjSjS5h1o"
+    
+        var data = {
+          "api_key": api_key,
+          "pin_id": pinCookie,
+          "pin": input
+        };
+        var data = JSON.stringify(data);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://termii.com/api/sms/otp/verify", true)
+        xhr.timeout = 2000;
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            var result = JSON.parse(this.responseText)
+            if (result.verified == true) {
+              location.href = "verification_success.html"
+              console.log(result);
+            
+            }
+            else {
+              location.href = "verification_failure.html"
+              console.log(result);
+            
+              
+            }
+          }
+
+        });
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.ontimeout = function (e) {
+          // Requête qui a expiré. On traite ce cas
+        };
+
+        xhr.send(data);
+
+      }
+    </script>
+
+</body>
+
+</html>
